@@ -1,8 +1,8 @@
-# Secure-Student-Login-System-with-Security-Analysis
+# Secure Student Login System
 
-A research prototype that demonstrates layered authentication security controls to protect student information systems from common web vulnerabilities (SQL injection, XSS, brute force, CSRF, session hijacking).
+A research prototype demonstrating layered authentication security controls to protect student information systems from common web vulnerabilities (SQL injection, XSS, brute force, CSRF, session hijacking).
 
-**Author**: Aayush Kumar Rai  
+**Author:** Aayush Kumar Rai  
 **Project:** BSc (Hons) Computing – Final Year Project  
 **Institution:** De Montfort University  
 
@@ -59,7 +59,7 @@ A research prototype that demonstrates layered authentication security controls 
 ### Steps
 
 1. **Clone the repository**  
-   `git clone https://github.com/your-username/secure-student-login.git`
+   `git clone https://github.com/yourusername/secure-student-login.git`
 
 2. **Move to XAMPP's htdocs folder**  
    - Windows (default): `C:\xampp\htdocs\secure-student-login`  
@@ -114,23 +114,23 @@ CREATE TABLE IF NOT EXISTS password_resets (
     expires_at TIMESTAMP NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+Update the database connection in config/database.php with your credentials (default for XAMPP: username root, password empty).
 
-**Usage**
+Usage
 Landing page – http://localhost/secure-student-login/
 Provides an overview of the system and navigation to registration/login.
 
-**Register** – Create a new account.
+Register – Create a new account.
 Password must be at least 8 characters with uppercase, lowercase, number, and special character.
 
-**Login** – After registration, log in with your credentials.
+Login – After registration, log in with your credentials.
 After 5 failed attempts, the account is locked for 15 minutes.
 
-**Dashboard** – After successful login, you can see your profile, security badges, and recent authentication logs.
+Dashboard – After successful login, you can see your profile, security badges, and recent authentication logs.
 
-**Logout** – Terminates the session and redirects to the login page.
+Logout – Terminates the session and redirects to the login page.
 
-**Security Controls Implemented
-**
+Security Controls Implemented
 bcrypt hashing – Passwords are hashed with a cost factor of 10, including a built‑in salt.
 
 Parameterized queries (PDO) – All database queries use prepared statements, eliminating SQL injection.
@@ -147,7 +147,7 @@ Input sanitization – User input is sanitised with htmlspecialchars() to preven
 
 Audit logging – Every authentication attempt (successful or failed) is logged with user ID, timestamp, IP address, and user agent.
 
-**Testing**
+Testing
 The system was tested with 22 manual test cases, covering:
 
 User registration (valid/invalid inputs, duplicate accounts)
@@ -165,7 +165,7 @@ XSS prevention (<script>alert('XSS')</script> rendered as plain text)
 All 22 tests passed successfully.
 Note: Automated scanning tools (OWASP ZAP, SQLMap) were not executed due to time constraints – listed as a limitation.
 
-**Limitations**
+Limitations
 Local testing only – The system has not been deployed to Azure or any live server.
 
 No HTTPS – Credentials and session cookies would be vulnerable on a live network.
@@ -178,8 +178,7 @@ No usability testing with real students – The claim of educational suitability
 
 No shoulder surfing protection – Credentials are entered directly (in contrast to Ranjan & Kumar, 2016).
 
-**Future Work
-**
+Future Work
 Deploy to Azure App Service (PHP 8.2 on Linux) with Azure Database for MySQL.
 
 Enable HTTPS with TLS 1.2+.
@@ -194,9 +193,9 @@ Add shoulder surfing protection (e.g., encoded credential entry).
 
 Implement continuous authentication using keystroke dynamics (Zamfiroiu et al., 2020).
 
-**License**
+License
 This project is for academic purposes as part of a BSc final year project. You may use the code for reference or educational purposes.
 
-**Contact**
+Contact
 Aayush Kumar Rai – p2837447@my365.dmu.ac.uk
 GitHub: https://github.com/aayushrai074
