@@ -114,3 +114,89 @@ CREATE TABLE IF NOT EXISTS password_resets (
     expires_at TIMESTAMP NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+**Usage**
+Landing page – http://localhost/secure-student-login/
+Provides an overview of the system and navigation to registration/login.
+
+**Register** – Create a new account.
+Password must be at least 8 characters with uppercase, lowercase, number, and special character.
+
+**Login** – After registration, log in with your credentials.
+After 5 failed attempts, the account is locked for 15 minutes.
+
+**Dashboard** – After successful login, you can see your profile, security badges, and recent authentication logs.
+
+**Logout** – Terminates the session and redirects to the login page.
+
+**Security Controls Implemented
+**
+bcrypt hashing – Passwords are hashed with a cost factor of 10, including a built‑in salt.
+
+Parameterized queries (PDO) – All database queries use prepared statements, eliminating SQL injection.
+
+Rate limiting – Maximum 5 failed login attempts; upon reaching the limit, the account is locked for 15 minutes.
+
+CSRF tokens – Every form contains a unique token; requests with missing or invalid tokens are rejected.
+
+Secure session cookies – Cookies are marked HttpOnly (prevents JavaScript access) and SameSite=Strict (prevents CSRF).
+
+Session regeneration – After a successful login, the session ID is regenerated to prevent session fixation.
+
+Input sanitization – User input is sanitised with htmlspecialchars() to prevent XSS.
+
+Audit logging – Every authentication attempt (successful or failed) is logged with user ID, timestamp, IP address, and user agent.
+
+**Testing**
+The system was tested with 22 manual test cases, covering:
+
+User registration (valid/invalid inputs, duplicate accounts)
+
+Secure login (correct/wrong passwords, account lockout)
+
+Session management (session cookie flags, logout, regeneration)
+
+CSRF protection (tampered token rejection)
+
+SQL injection prevention (payloads like ' OR '1'='1)
+
+XSS prevention (<script>alert('XSS')</script> rendered as plain text)
+
+All 22 tests passed successfully.
+Note: Automated scanning tools (OWASP ZAP, SQLMap) were not executed due to time constraints – listed as a limitation.
+
+**Limitations**
+Local testing only – The system has not been deployed to Azure or any live server.
+
+No HTTPS – Credentials and session cookies would be vulnerable on a live network.
+
+No two‑factor authentication (2FA) – Compared to related work (Ullah & Iqbal, 2022), this is a missing feature.
+
+No automated vulnerability scanning – OWASP ZAP, SQLMap, Burp Suite were not used.
+
+No usability testing with real students – The claim of educational suitability is unvalidated.
+
+No shoulder surfing protection – Credentials are entered directly (in contrast to Ranjan & Kumar, 2016).
+
+**Future Work
+**
+Deploy to Azure App Service (PHP 8.2 on Linux) with Azure Database for MySQL.
+
+Enable HTTPS with TLS 1.2+.
+
+Implement TOTP-based two‑factor authentication.
+
+Run automated scans using OWASP ZAP and SQLMap.
+
+Conduct usability testing with real students to measure satisfaction and performance.
+
+Add shoulder surfing protection (e.g., encoded credential entry).
+
+Implement continuous authentication using keystroke dynamics (Zamfiroiu et al., 2020).
+
+**License**
+This project is for academic purposes as part of a BSc final year project. You may use the code for reference or educational purposes.
+
+**Contact**
+Aayush Kumar Rai – p2837447@my365.dmu.ac.uk
+GitHub: https://github.com/aayushrai074
